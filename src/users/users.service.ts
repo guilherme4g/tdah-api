@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { UsersRepository } from './users.repository';
+import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
@@ -9,27 +10,42 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-   create(createUserDto: CreateUserDto): User {
-    const user =  this.usersRepository.create(createUserDto);
+  create(createUserDto: CreateUserDto): User {
+    const userAlreadyExists = this.findByEmail(createUserDto.email);
+    if (userAlreadyExists) {
+      throw Error('Usuário já existe');
+    }
+
+    const user = this.usersRepository.create(createUserDto);
     return user;
   }
 
-   findAll(): User[] {
-    const users =  this.usersRepository.list();
+  findAll(): User[] {
+    const users = this.usersRepository.list({});
     return users;
   }
 
-   findOne(id: string): User {
-    const [user] =  this.usersRepository.list();
+  findOne(id: string): User {
+    const [user] = this.usersRepository.list({ id });
     return user;
   }
 
-   update(id: string, updateUserDto: UpdateUserDto): User {
-    const user =  this.usersRepository.update(id, updateUserDto);
+  findByEmail(email: string): User {
+    const [user] = this.usersRepository.list({ email });
     return user;
   }
 
-   remove(id: string): void {
-     this.usersRepository.remove(id);
+  update(id: string, updateUserDto: UpdateUserDto): User {
+    const userAlreadyExists = this.findOne(id);
+    if (!userAlreadyExists) {
+      throw Error('Usuário não existe');
+    }
+
+    const user = this.usersRepository.update(id, updateUserDto);
+    return user;
+  }
+
+  remove(id: string): void {
+    this.usersRepository.remove(id);
   }
 }
