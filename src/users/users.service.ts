@@ -9,27 +9,27 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = await this.usersRepository.create(createUserDto);
+   create(createUserDto: CreateUserDto): User {
+    const user =  this.usersRepository.create(createUserDto);
     return user;
   }
 
-  async findAll(): Promise<User[]> {
-    const users = await this.usersRepository.list();
+   findAll(): User[] {
+    const users =  this.usersRepository.list();
     return users;
   }
 
-  async findOne(id: string): Promise<User> {
-    const [user] = await this.usersRepository.list();
+   findOne(id: string): User {
+    const [user] =  this.usersRepository.list();
     return user;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const user = await this.usersRepository.update(id, updateUserDto);
+   update(id: string, updateUserDto: UpdateUserDto): User {
+    const user =  this.usersRepository.update(id, updateUserDto);
     return user;
   }
 
-  async remove(id: string): Promise<void> {
-    await this.usersRepository.remove(id);
+   remove(id: string): void {
+     this.usersRepository.remove(id);
   }
 }
