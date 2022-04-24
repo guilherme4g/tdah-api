@@ -41,6 +41,14 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @Get(':parentId')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'get user by parentId' })
+  findByParentId(@Param('parentId') parentId: string) {
+    return this.usersService.findByParentId(parentId);
+  }
+
+
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'update user by id' })

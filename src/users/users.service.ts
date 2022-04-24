@@ -35,6 +35,11 @@ export class UsersService {
     return user;
   }
 
+  findByParentId(parentId: string): User {
+    const [user] = this.usersRepository.list({ parentId });
+    return user;
+  }
+
   update(id: string, updateUserDto: UpdateUserDto): User {
     const userAlreadyExists = this.findOne(id);
     if (!userAlreadyExists) {

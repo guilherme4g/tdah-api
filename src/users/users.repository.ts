@@ -16,8 +16,18 @@ export class UsersRepository {
   }
 
   list(listUserDto: ListUserDto): User[] {
-    const { id, email } = listUserDto;
-    if (id) {
+    const { id, email, parentId } = listUserDto;
+    if(parentId){
+      let users = this.Users.map((user) => {
+        if(user.parentId == parentId){
+          return user;        
+        }
+      });
+      return users;
+    }
+    else if (id) {
+
+      console.log("entrou")
       return [this.Users.find((user) => user.id == id)];
     } else if (email) {
       return [this.Users.find((user) => user.email == email)];
@@ -34,6 +44,7 @@ export class UsersRepository {
       name: updateUserDto.name ?? this.Users[index].name,
       phone: updateUserDto.phone ?? this.Users[index].phone,
       role: updateUserDto.role ?? this.Users[index].role,
+      parentId: updateUserDto.parentId ?? this.Users[index].parentId,
       password: updateUserDto.password ?? this.Users[index].password,
     };
     return this.Users[index];

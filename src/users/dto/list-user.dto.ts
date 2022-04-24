@@ -11,4 +11,10 @@ export class ListUserDto {
   @IsEmail()
   @IsOptional()
   email?: string;
+
+  @ApiProperty()
+  @IsUUID('4')
+  @IsOptional()
+  parentId?: string;
+
 }
