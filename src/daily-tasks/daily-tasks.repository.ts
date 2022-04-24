@@ -15,12 +15,22 @@ export class DailyTasksRepository {
     return dailyTask;
   }
 
-  list(id?: string): DailyTask[] {
+  list(id?: string, type?: string): DailyTask[] {
+
+    
     if (id) {
+      console.log("enrou")
       return [this.DailyTasks.find((user) => user.id == id)];
+    }else if(type){
+      const users = this.DailyTasks.map((user)=>{
+        if(user.type == type){return user}
+      }); 
+      return users;
     }
     return this.DailyTasks;
   }
+
+
 
   update(id: string, updateDailyTaskDto: UpdateDailyTaskDto): DailyTask {
     const index = this.DailyTasks.findIndex((user) => user.id == id);
@@ -30,6 +40,7 @@ export class DailyTasksRepository {
       createdById: this.DailyTasks[index].createdById,
       name: updateDailyTaskDto.name ?? this.DailyTasks[index].name,
       award: updateDailyTaskDto.award ?? this.DailyTasks[index].award,
+      type: updateDailyTaskDto.type ?? this.DailyTasks[index].type,
       days: updateDailyTaskDto.days ?? this.DailyTasks[index].days,
       createdForId:
         updateDailyTaskDto.createdForId ?? this.DailyTasks[index].createdForId,

@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsInt, IsNotEmpty, IsString } from 'class-validator';
-import { Day, dayArray } from '../entities/daily-task.entity';
+import { IsEnum, IsIn, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { Day, dayArray, taskType, taskTypeArray} from '../entities/daily-task.entity';
 
 export class CreateDailyTaskDto {
   @ApiProperty({ example: 'Arrumar a Cama' })
@@ -12,6 +12,11 @@ export class CreateDailyTaskDto {
   @IsInt()
   @IsNotEmpty()
   award: number;
+
+  @ApiProperty({ enum: taskTypeArray })
+  @IsIn(taskTypeArray)
+  @IsNotEmpty()
+  type: taskType;
 
   @ApiProperty({ enum: dayArray, isArray: true, example: ['sunday', 'monday'] })
   @IsEnum(dayArray, { each: true })

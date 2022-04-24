@@ -11,10 +11,14 @@ export const dayArray = [
 ] as const;
 export type Day = typeof dayArray[number];
 
+export const taskTypeArray = ['relationship', 'daily'] as const;
+export type taskType = typeof taskTypeArray[number];
+
 export class DailyTask {
   id: string;
   name: string;
   award: number;
+  type: taskType;
   days: Day[];
   createdById: string;
   createdBy?: User;

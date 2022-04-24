@@ -23,6 +23,11 @@ export class DailyTasksService {
     return dailyTask;
   }
 
+  findByType(type: string): DailyTask[] {
+    const dailyTasks= this.dailyTasksRepository.list(null, type);
+    return dailyTasks;
+  }
+
   update(id: string, updateDailyTaskDto: UpdateDailyTaskDto): DailyTask {
     const dailyTask = this.dailyTasksRepository.update(id, updateDailyTaskDto);
     return dailyTask;

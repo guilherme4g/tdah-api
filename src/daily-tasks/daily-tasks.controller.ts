@@ -40,6 +40,13 @@ export class DailyTasksController {
     return this.dailyTasksService.findOne(id);
   }
 
+  @Get(':type')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'get daily task by type(relationship or daily)' })
+  findByType(@Param('type') type: string) {
+    return this.dailyTasksService.findByType(type);
+  }
+
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'update daily task by id' })
