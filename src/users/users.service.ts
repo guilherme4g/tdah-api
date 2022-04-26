@@ -7,6 +7,8 @@ import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+import { DefaultException } from '../shared/exception/default.exception';
+
 @Injectable()
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
@@ -14,7 +16,7 @@ export class UsersService {
   create(createUserDto: CreateUserDto): User {
     const userAlreadyExists = this.findByEmail(createUserDto.email);
     if (userAlreadyExists) {
-      throw Error('Usuário já existe');
+      throw new DefaultException('UserService', 'Usuário já existe');
     }
 
     const user = this.usersRepository.create(createUserDto);
@@ -28,6 +30,7 @@ export class UsersService {
 
   findOne(id: string): User {
     const [user] = this.usersRepository.list({ id });
+    if (user) user.children = this.findAll({ parentId: user.id });
     return user;
   }
 
