@@ -1,8 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsIn, IsInt, IsNotEmpty, IsString } from 'class-validator';
-import { Day, dayArray, taskType, taskTypeArray} from '../entities/daily-task.entity';
+import {
+  Day,
+  dayArray,
+  taskType,
+  taskTypeArray,
+} from '../entities/task.entity';
 
-export class CreateDailyTaskDto {
+export class CreateTaskDto {
   @ApiProperty({ example: 'Arrumar a Cama' })
   @IsString()
   @IsNotEmpty()
