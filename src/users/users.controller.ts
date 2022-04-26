@@ -8,10 +8,12 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from './users.service';
+import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -30,8 +32,8 @@ export class UsersController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'get users by filter' })
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Query() listUserDto: ListUserDto) {
+    return this.usersService.findAll(listUserDto);
   }
 
   @Get(':id')
@@ -40,14 +42,6 @@ export class UsersController {
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
-
-  @Get(':parentId')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'get user by parentId' })
-  findByParentId(@Param('parentId') parentId: string) {
-    return this.usersService.findByParentId(parentId);
-  }
-
 
   @Patch(':id')
   @HttpCode(HttpStatus.OK)

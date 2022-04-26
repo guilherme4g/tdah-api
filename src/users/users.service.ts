@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
+import { User } from './entities/user.entity';
 import { UsersRepository } from './users.repository';
+
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -20,8 +21,8 @@ export class UsersService {
     return user;
   }
 
-  findAll(): User[] {
-    const users = this.usersRepository.list({});
+  findAll(listUserDto: ListUserDto): User[] {
+    const users = this.usersRepository.list(listUserDto);
     return users;
   }
 

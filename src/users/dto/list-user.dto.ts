@@ -2,12 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsOptional, IsUUID } from 'class-validator';
 
 export class ListUserDto {
-  @ApiProperty({ example: 'samu.gatinho@hotmail.com' })
+  @ApiProperty()
   @IsUUID('4')
   @IsOptional()
   id?: string;
 
-  @ApiProperty({ example: 'samu.gatinho@hotmail.com' })
+  @ApiProperty()
   @IsEmail()
   @IsOptional()
   email?: string;
@@ -16,5 +16,4 @@ export class ListUserDto {
   @IsUUID('4')
   @IsOptional()
   parentId?: string;
-
 }

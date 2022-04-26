@@ -7,53 +7,48 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersRepository {
-  private Users: User[] = [];
+  private users: User[] = [];
 
   create(createUserDto: CreateUserDto): User {
     const user: User = { id: uuidv4(), ...createUserDto };
-    this.Users.push(user);
+    this.users.push(user);
     return user;
   }
 
   list(listUserDto: ListUserDto): User[] {
     const { id, email, parentId } = listUserDto;
-    if(parentId){
-      let users = this.Users.map((user) => {
-        if(user.parentId == parentId){
-          return user;        
-        }
-      });
-      return users;
-    }
-    else if (id) {
+    const usersFiltered = this.users
+      .filter((user) => user.id.toLowerCase().indexOf(id.toLowerCase()) !== -1)
+      .filter(
+        (user) => user.email.toLowerCase().indexOf(email.toLowerCase()) !== -1,
+      )
+      .filter(
+        (user) =>
+          user.parentId.toLowerCase().indexOf(parentId.toLowerCase()) !== -1,
+      );
 
-      console.log("entrou")
-      return [this.Users.find((user) => user.id == id)];
-    } else if (email) {
-      return [this.Users.find((user) => user.email == email)];
-    }
-    return this.Users;
+    return usersFiltered;
   }
 
   update(id: string, updateUserDto: UpdateUserDto): User {
-    const index = this.Users.findIndex((user) => user.id == id);
+    const index = this.users.findIndex((user) => user.id == id);
     console.log(index);
-    this.Users[index] = {
+    this.users[index] = {
       id,
-      email: this.Users[index].email,
-      name: updateUserDto.name ?? this.Users[index].name,
-      phone: updateUserDto.phone ?? this.Users[index].phone,
-      role: updateUserDto.role ?? this.Users[index].role,
-      parentId: updateUserDto.parentId ?? this.Users[index].parentId,
-      password: updateUserDto.password ?? this.Users[index].password,
+      email: this.users[index].email,
+      name: updateUserDto.name ?? this.users[index].name,
+      phone: updateUserDto.phone ?? this.users[index].phone,
+      role: updateUserDto.role ?? this.users[index].role,
+      parentId: updateUserDto.parentId ?? this.users[index].parentId,
+      password: updateUserDto.password ?? this.users[index].password,
     };
-    return this.Users[index];
+    return this.users[index];
   }
 
   remove(id: string): void {
-    const index = this.Users.findIndex((user) => {
+    const index = this.users.findIndex((user) => {
       user.id == id;
     });
-    this.Users.splice(index, 1);
+    this.users.splice(index, 1);
   }
 }

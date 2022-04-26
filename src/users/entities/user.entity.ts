@@ -7,5 +7,6 @@ export class User {
   phone: string;
   role: RoleType;
   parentId: string;
+  children?: User[];
   password: string;
 }
