@@ -30,8 +30,11 @@ export class UsersService {
 
   findOne(id: string): User {
     const [user] = this.usersRepository.list({ id });
-    if (user) user.children = this.findAll({ parentId: user.id });
-    return user;
+    const children = this.findAll({ parentId: user.id });
+    return {
+      ...user,
+      children,
+    };
   }
 
   findByEmail(email: string): User {

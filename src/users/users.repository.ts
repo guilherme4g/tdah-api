@@ -16,16 +16,21 @@ export class UsersRepository {
   }
 
   list(listUserDto: ListUserDto): User[] {
-    const { id, email, parentId } = listUserDto;
+    const { id = '', email = '', parentId } = listUserDto;
     const usersFiltered = this.users
       .filter((user) => user.id.toLowerCase().indexOf(id.toLowerCase()) !== -1)
       .filter(
         (user) => user.email.toLowerCase().indexOf(email.toLowerCase()) !== -1,
       )
-      .filter(
-        (user) =>
-          user.parentId.toLowerCase().indexOf(parentId.toLowerCase()) !== -1,
-      );
+      .filter((user) => {
+        if (!parentId) return true;
+        if (parentId && user.parentId) {
+          return (
+            user.parentId?.toLowerCase().indexOf(parentId.toLowerCase()) !== -1
+          );
+        }
+        return false;
+      });
 
     return usersFiltered;
   }

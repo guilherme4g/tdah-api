@@ -1,4 +1,4 @@
-export const roleTypeArray = ['admin', 'parent', 'child'] as const;
+export const roleTypeArray = ['admin', 'common'] as const;
 export type RoleType = typeof roleTypeArray[number];
 export class User {
   id: string;
@@ -6,7 +6,7 @@ export class User {
   email: string;
   phone: string;
   role: RoleType;
-  parentId: string;
+  parentId?: string;
   children?: User[];
   password: string;
 }

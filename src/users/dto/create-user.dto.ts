@@ -1,19 +1,26 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsIn, IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import {
+  IsEmail,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { RoleType, roleTypeArray } from '../entities/user.entity';
 
 export class CreateUserDto {
-  @ApiProperty({example: "Samugod"})
+  @ApiProperty({ example: 'samuel' })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({example: "samu.gatinho@hotmail.com"})
+  @ApiProperty({ example: 'samu@cin.com' })
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
-  @ApiProperty({example: "40028922"})
+  @ApiProperty({ example: '40028922' })
   @IsString()
   @IsNotEmpty()
   phone: string;
@@ -26,9 +33,9 @@ export class CreateUserDto {
   @ApiProperty()
   @IsUUID('4')
   @IsOptional()
-  parentId: string;
+  parentId?: string;
 
-  @ApiProperty({example: "senha123"})
+  @ApiProperty({ example: 'senha123' })
   @IsString()
   @IsNotEmpty()
   password: string;
