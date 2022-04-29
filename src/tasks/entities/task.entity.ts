@@ -14,14 +14,21 @@ export type Day = typeof dayArray[number];
 export const taskTypeArray = ['relationship', 'daily'] as const;
 export type taskType = typeof taskTypeArray[number];
 
-export class DailyTask {
+export const statusTypeArray = ['done', 'ny'] as const; //done or not yet
+export type statusType = typeof taskTypeArray[number];
+
+export class Task {
   id: string;
   name: string;
-  award: number;
+  coins: number;
   type: taskType;
   days: Day[];
   createdById: string;
   createdBy?: User;
   createdForId: string;
   createdFor?: User;
+  registries: {
+    date: string;
+    status: statusType;
+  }[];
 }

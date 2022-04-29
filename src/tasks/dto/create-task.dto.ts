@@ -16,7 +16,7 @@ export class CreateTaskDto {
   @ApiProperty({ example: 10 })
   @IsInt()
   @IsNotEmpty()
-  award: number;
+  coins: number;
 
   @ApiProperty({ enum: taskTypeArray })
   @IsIn(taskTypeArray)
