@@ -42,7 +42,8 @@ export class TasksRepository {
       )
       .filter(
         (task) => task.type.toLowerCase().indexOf(type.toLowerCase()) !== -1,
-      ).filter(
+      )
+      .filter(
         (task) => task.type.toLowerCase().indexOf(type.toLowerCase()) !== -1,
       );
 
@@ -54,12 +55,13 @@ export class TasksRepository {
     console.log(index);
     this.tasks[index] = {
       id,
-      email: this.tasks[index].email,
+      createdById: this.tasks[index].createdById,
+      createdForId: this.tasks[index].createdForId,
+      registries: this.tasks[index].registries,
       name: updateTaskDto.name ?? this.tasks[index].name,
-      phone: updateTaskDto.phone ?? this.tasks[index].phone,
-      role: updateTaskDto.role ?? this.tasks[index].role,
-      parentId: updateTaskDto.parentId ?? this.tasks[index].parentId,
-      password: updateTaskDto.password ?? this.tasks[index].password,
+      coins: updateTaskDto.coins ?? this.tasks[index].coins,
+      days: updateTaskDto.days ?? this.tasks[index].days,
+      type: updateTaskDto.type ?? this.tasks[index].type,
     };
     return this.tasks[index];
   }

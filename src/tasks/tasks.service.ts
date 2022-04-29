@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
+import { dayArray, Day, Task } from './entities/task.entity';
+
 import { ListTaskDto } from './dto/list-task.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -15,7 +17,7 @@ export class TasksService {
     private readonly usersService: UsersService,
   ) {}
 
-  create(createTaskDto: CreateTaskDto) {
+  create(createTaskDto: CreateTaskDto): Task {
     const parent = this.usersService.findOne(createTaskDto.createdById);
     if (!parent) {
       throw new DefaultException(
@@ -34,24 +36,45 @@ export class TasksService {
       );
     }
 
-    this.tasksRepository.create()
+    const task = this.tasksRepository.create(createTaskDto);
 
-    return;
+    return task;
   }
 
-  findAll(listTaskDto: ListTaskDto) {
-    return `This action returns all tasks`;
+  findAll(listTaskDto: ListTaskDto): Task[] {
+    const tasks = this.tasksRepository.list(listTaskDto);
+    return tasks;
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} task`;
+  findOne(id: string): Task {
+    const [task] = this.tasksRepository.list({ id });
+    return task;
   }
 
-  update(id: string, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  update(id: string, updateTaskDto: UpdateTaskDto): Task {
+    const taskAlreadyExists = this.findOne(id);
+    if (!taskAlreadyExists) {
+      throw new DefaultException('TaskService', 'Task não existe');
+    }
+
+    const task = this.tasksRepository.update(id, updateTaskDto);
+    return task;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} task`;
+  remove(id: string): void {
+    this.tasksRepository.remove(id);
+  }
+
+  getTodayDayName(): Day {
+    const date = new Date();
+    const dayName = dayArray[date.getDay()];
+    return dayName;
+  }
+
+  getDate(): string {
+    const date = new Date();
+    return `${date.getFullYear()}-${
+      date.getMonth() < 9 ? '0' : ''
+    }-${date.getDate()}`;
   }
 }
