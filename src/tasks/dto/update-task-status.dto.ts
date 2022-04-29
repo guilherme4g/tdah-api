@@ -1,14 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsUUID } from 'class-validator';
-
-export class UpdateTaskDto {
+import { IsIn, IsNotEmpty } from 'class-validator';
+import { statusTypeArray, StatusType } from '../entities/task.entity';
+export class UpdateTaskStatusDto {
   @ApiProperty()
-  @IsUUID('4')
+  @ApiProperty({ enum: statusTypeArray })
+  @IsIn(statusTypeArray)
   @IsNotEmpty()
-  id: string;
-
-  @ApiProperty()
-  @IsUUID('4')
-  @IsNotEmpty()
-  status: string;
+  status: StatusType;
 }

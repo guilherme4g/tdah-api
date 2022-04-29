@@ -3,7 +3,7 @@ import { IsEnum, IsIn, IsInt, IsNotEmpty, IsString } from 'class-validator';
 import {
   Day,
   dayArray,
-  taskType,
+  TaskType,
   taskTypeArray,
 } from '../entities/task.entity';
 
@@ -21,7 +21,7 @@ export class CreateTaskDto {
   @ApiProperty({ enum: taskTypeArray })
   @IsIn(taskTypeArray)
   @IsNotEmpty()
-  type: taskType;
+  type: TaskType;
 
   @ApiProperty({ enum: dayArray, isArray: true, example: ['sunday', 'monday'] })
   @IsEnum(dayArray, { each: true })
