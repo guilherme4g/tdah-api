@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsIn, IsOptional, IsString, IsBoolean, IsUUID } from 'class-validator';
-import { taskType, taskTypeArray } from '../entities/task.entity';
+import { TaskType, taskTypeArray } from '../entities/task.entity';
 
 export class ListTaskDto {
   @ApiProperty({ required: false })
@@ -16,7 +16,7 @@ export class ListTaskDto {
   @ApiProperty({ enum: taskTypeArray, required: false })
   @IsIn(taskTypeArray)
   @IsOptional()
-  type?: taskType;
+  type?: TaskType;
 
   @ApiProperty({ required: false })
   @IsBoolean()
