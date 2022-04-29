@@ -16,6 +16,7 @@ import { TasksService } from './tasks.service';
 import { ListTaskDto } from './dto/list-task.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 @ApiTags('Tasks')
 @Controller('tasks')
@@ -33,7 +34,15 @@ export class TasksController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'get tasks by filter' })
   findAll(@Query() listTaskDto: ListTaskDto) {
-    return this.tasksService.findAll(listTaskDto);
+    const tasks = this.tasksService.findAll(listTaskDto);
+    const dailyTasks = tasks.filter((task) => task.type === 'daily');
+    const relationshipTasks = tasks.filter(
+      (task) => task.type === 'relationship',
+    );
+    return {
+      dailyTasks,
+      relationshipTasks,
+    };
   }
 
   @Get(':id')
@@ -48,9 +57,9 @@ export class TasksController {
   @ApiOperation({ summary: 'update task status' })
   updateStatusById(
     @Param('id') id: string,
-    @Body() updateTaskDto: UpdateTaskDto,
+    @Body() updateTaskStatusDto: UpdateTaskStatusDto,
   ) {
-    return this.tasksService.update(id, updateTaskDto);
+    return this.tasksService.updateStatusRegistry(id, updateTaskStatusDto);
   }
 
   @Patch(':id')
