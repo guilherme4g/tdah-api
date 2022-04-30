@@ -50,7 +50,7 @@ export class UsersService {
   update(id: string, updateUserDto: UpdateUserDto): User {
     const userAlreadyExists = this.findOne(id);
     if (!userAlreadyExists) {
-      throw Error('Usuário não existe');
+      throw new DefaultException('UserService', 'Usuário não existe');
     }
 
     const user = this.usersRepository.update(id, updateUserDto);
