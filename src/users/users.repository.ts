@@ -43,7 +43,6 @@ export class UsersRepository {
       email: this.users[index].email,
       name: updateUserDto.name ?? this.users[index].name,
       phone: updateUserDto.phone ?? this.users[index].phone,
-      role: updateUserDto.role ?? this.users[index].role,
       parentId: updateUserDto.parentId ?? this.users[index].parentId,
       password: updateUserDto.password ?? this.users[index].password,
     };

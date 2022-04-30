@@ -7,7 +7,6 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { RoleType, roleTypeArray } from '../entities/user.entity';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'samuel' })
@@ -20,17 +19,12 @@ export class CreateUserDto {
   @IsNotEmpty()
   email: string;
 
-  @ApiProperty({ example: '40028922' })
+  @ApiProperty({ required: false, example: '40028922' })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   phone: string;
 
-  @ApiProperty({ enum: roleTypeArray })
-  @IsIn(roleTypeArray)
-  @IsNotEmpty()
-  role: RoleType;
-
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsUUID('4')
   @IsOptional()
   parentId?: string;
