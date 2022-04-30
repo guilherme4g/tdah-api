@@ -16,6 +16,30 @@ export class AwardsRepository {
   }
 
   list(listAwardDto: ListAwardDto): Award[] {
+    const {
+      id = '',
+      name = '',
+      createdById = '',
+      createdForId = '',
+    } = listAwardDto;
+
+    const tasksFiltered = this.awards
+      .filter((user) => user.id.toLowerCase().indexOf(id.toLowerCase()) !== -1)
+      .filter(
+        (user) => user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1,
+      )
+      .filter(
+        (user) =>
+          user.createdById.toLowerCase().indexOf(createdById.toLowerCase()) !==
+          -1,
+      )
+      .filter(
+        (user) =>
+          user.createdForId
+            .toLowerCase()
+            .indexOf(createdForId.toLowerCase()) !== -1,
+      );
+
     return this.awards;
   }
 
