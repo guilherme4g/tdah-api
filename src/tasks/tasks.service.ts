@@ -44,14 +44,20 @@ export class TasksService {
   findAll(listTaskDto: ListTaskDto): Task[] {
     if (listTaskDto.createdById && listTaskDto.createdById) {
       const date = this.getDate();
-      const todayDayName = this.getTodayDayName();
-      const tasksToUpdate = this.tasksRepository.list(listTaskDto);
-      // const tasksToAddRegistries = tasksToUpdate.filter((task) =>
-      //   task.days.includes(todayDayName),
-      // );
-      // tasksToAddRegistries.forEach((task) => {
-      //   this.tasksRepository.createRegistry(task.id, date);
-      // });
+      const tasksToUpdate = this.tasksRepository.list({
+        createdById: listTaskDto.createdById,
+        createdForId: listTaskDto.createdForId,
+      });
+      if (tasksToUpdate[0]) {
+        if (tasksToUpdate[0].date !== date) {
+          tasksToUpdate.forEach((task) => {
+            this.update(task.id, {
+              date,
+              status: 'ny',
+            });
+          });
+        }
+      }
     }
 
     const tasks = this.tasksRepository.list(listTaskDto);
@@ -89,7 +95,6 @@ export class TasksService {
   //     updateTaskStatusDto.status,
   //   );
 
-  
   //   const task = this.findOne(id);
 
   //   return task;

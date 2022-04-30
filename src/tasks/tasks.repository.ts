@@ -56,11 +56,11 @@ export class TasksRepository {
         createdById: this.tasks[index].createdById,
         createdForId: this.tasks[index].createdForId,
         name: updateTaskDto.name ?? this.tasks[index].name,
-        status: updateTaskDto.status ?? this.tasks[index].status,
-        date: updateTaskDto.date ?? this.tasks[index].date,
         coins: updateTaskDto.coins ?? this.tasks[index].coins,
         days: updateTaskDto.days ?? this.tasks[index].days,
         type: updateTaskDto.type ?? this.tasks[index].type,
+        date: updateTaskDto.date ?? this.tasks[index].date,
+        status: updateTaskDto.status ?? this.tasks[index].status,
       };
       return this.tasks[index];
     }
@@ -73,29 +73,4 @@ export class TasksRepository {
     });
     this.tasks.splice(index, 1);
   }
-
-  // createRegistry(taskId: string, date: string) {
-  //   const indexTask = this.tasks.findIndex((task) => task.id == taskId);
-  //   if (indexTask > -1) {
-  //     const indexRegistry = this.tasks[indexTask].registries.findIndex(
-  //       (registry) => registry.date == date,
-  //     );
-  //     if (indexRegistry < 0) {
-  //       this.tasks[indexTask].registries.push({
-  //         date,
-  //         status: 'ny',
-  //       });
-  //     }
-  //   }
-  //   return null;
-  // }
-
-//   updateRegistry(taskId: string, date: string, statusType: StatusType) {
-//     const indexTask = this.tasks.findIndex((task) => task.id == taskId);
-//     const indexRegistry = this.tasks[indexTask].registries.findIndex(
-//       (registry) => registry.date == date,
-//     );
-
-//     this.tasks[indexTask].registries[indexRegistry].status = statusType;
-//   }
 }

@@ -16,7 +16,6 @@ import { TasksService } from './tasks.service';
 import { ListTaskDto } from './dto/list-task.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 @ApiTags('Tasks')
 @Controller('tasks')
@@ -50,16 +49,6 @@ export class TasksController {
   @ApiOperation({ summary: 'get task by id' })
   findOne(@Param('id') id: string) {
     return this.tasksService.findOne(id);
-  }
-
-  @Patch(':id/status')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'update task status' })
-  updateStatusById(
-    @Param('id') id: string,
-    @Body() updateTaskStatusDto: UpdateTaskStatusDto,
-  ) {
-    return this.tasksService.updateStatusRegistry(id, updateTaskStatusDto);
   }
 
   @Patch(':id')
