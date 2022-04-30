@@ -5,7 +5,6 @@ import { dayArray, Day, Task } from './entities/task.entity';
 import { ListTaskDto } from './dto/list-task.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 import { UsersService } from 'src/users/users.service';
 import { TasksRepository } from './tasks.repository';
@@ -47,12 +46,12 @@ export class TasksService {
       const date = this.getDate();
       const todayDayName = this.getTodayDayName();
       const tasksToUpdate = this.tasksRepository.list(listTaskDto);
-      const tasksToAddRegistries = tasksToUpdate.filter((task) =>
-        task.days.includes(todayDayName),
-      );
-      tasksToAddRegistries.forEach((task) => {
-        this.tasksRepository.createRegistry(task.id, date);
-      });
+      // const tasksToAddRegistries = tasksToUpdate.filter((task) =>
+      //   task.days.includes(todayDayName),
+      // );
+      // tasksToAddRegistries.forEach((task) => {
+      //   this.tasksRepository.createRegistry(task.id, date);
+      // });
     }
 
     const tasks = this.tasksRepository.list(listTaskDto);
@@ -75,25 +74,26 @@ export class TasksService {
     return task;
   }
 
-  updateStatusRegistry(
-    id: string,
-    updateTaskStatusDto: UpdateTaskStatusDto,
-  ): Task {
-    const taskAlreadyExists = this.findOne(id);
-    if (!taskAlreadyExists) {
-      throw new DefaultException('TaskService', 'Task não existe');
-    }
+  // updateStatusRegistry(
+  //   id: string,
+  //   updateTaskStatusDto: UpdateTaskStatusDto,
+  // ): Task {
+  //   const taskAlreadyExists = this.findOne(id);
+  //   if (!taskAlreadyExists) {
+  //     throw new DefaultException('TaskService', 'Task não existe');
+  //   }
 
-    this.tasksRepository.updateRegistry(
-      id,
-      this.getTodayDayName(),
-      updateTaskStatusDto.status,
-    );
+  //   this.tasksRepository.updateRegistry(
+  //     id,
+  //     this.getTodayDayName(),
+  //     updateTaskStatusDto.status,
+  //   );
 
-    const task = this.findOne(id);
+  
+  //   const task = this.findOne(id);
 
-    return task;
-  }
+  //   return task;
+  // }
 
   remove(id: string): void {
     this.tasksRepository.remove(id);

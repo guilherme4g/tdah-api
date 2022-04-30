@@ -27,8 +27,6 @@ export class Task {
   createdBy?: User;
   createdForId: string;
   createdFor?: User;
-  registries: {
-    date: string;
-    status: StatusType;
-  }[];
+  date: string;
+  status: StatusType;  
 }
