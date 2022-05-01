@@ -7,7 +7,23 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class UsersRepository {
-  private users: User[] = [];
+  private users: User[] = [
+    {
+      id: "87114373-b7de-4e48-b603-df97545a7482",
+      name: "samuel",
+      email: "samu@cin.com",
+      phone: "40028922",
+      password: "senha123"
+    },
+    {
+      id: "a9795b14-af93-4db0-89f2-9742ac9b6d13",
+      name: "samuel junior",
+      email: "junin@cin.com",
+      phone: "40028922",
+      parentId: "87114373-b7de-4e48-b603-df97545a7482",
+      password: "senha123"
+    }  
+  ];
 
   create(createUserDto: CreateUserDto): User {
     const user: User = { id: uuidv4(), ...createUserDto };
@@ -37,7 +53,6 @@ export class UsersRepository {
 
   update(id: string, updateUserDto: UpdateUserDto): User {
     const index = this.users.findIndex((user) => user.id == id);
-    console.log(index);
     this.users[index] = {
       id,
       email: this.users[index].email,

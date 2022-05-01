@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import { IsIn, IsOptional, IsString, IsBoolean, IsUUID } from 'class-validator';
-import { StatusType, statusTypeArray, TaskType, taskTypeArray } from '../entities/task.entity';
+import { TaskType, taskTypeArray } from '../entities/task.entity';
 
 export class ListTaskDto {
   @ApiProperty({ required: false })
@@ -18,20 +19,21 @@ export class ListTaskDto {
   @IsOptional()
   type?: TaskType;
 
-  @ApiProperty({ required: false })
+  @Transform(({value}) => {  return value === 'true' || value === true  })
+  @ApiProperty({ required: false})
   @IsBoolean()
   @IsOptional()
   today?: Boolean;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   date?: string;
 
-  @ApiProperty({ enum: statusTypeArray, required: false })
-  @IsIn(statusTypeArray)
+  @ApiProperty({ required: false })
+  @IsBoolean()
   @IsOptional()
-  status?: StatusType;
+  done?: boolean
 
   @ApiProperty({ required: false })
   @IsString()

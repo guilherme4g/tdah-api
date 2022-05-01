@@ -45,7 +45,6 @@ export class AwardsRepository {
 
   update(id: string, updateAwardDto: UpdateAwardDto): Award {
     const index = this.awards.findIndex((Award) => Award.id == id);
-    console.log(index);
     this.awards[index] = {
       id,
       name: updateAwardDto.name ?? this.awards[index].name,

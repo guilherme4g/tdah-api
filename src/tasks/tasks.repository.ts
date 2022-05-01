@@ -2,15 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { ListTaskDto } from './dto/list-task.dto';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { Task, StatusType } from './entities/task.entity';
 import { v4 as uuidv4 } from 'uuid';
+import { dayArray, Day, Task } from './entities/task.entity';
+import { getDefaultSettings } from 'http2';
+import { TasksService } from './tasks.service';
 
 @Injectable()
 export class TasksRepository {
   private tasks: Task[] = [];
 
   create(createTaskDto: CreateTaskDto): Task {
-    const task: Task = { id: uuidv4(), ...createTaskDto };
+    const task: Task = { id: uuidv4(), date: "", done: false, ...createTaskDto };
     this.tasks.push(task);
     return task;
   }
@@ -42,12 +44,25 @@ export class TasksRepository {
       )
       .filter(
         (task) => task.type.toLowerCase().indexOf(type.toLowerCase()) !== -1,
+      ).filter(
+        (task)=> {
+          const  day = this.getTodayDayName()
+          if(today && task.days && task.days.includes(day)){
+            return true;
+          }else if(!today){
+            return true;
+          }else if(task.type === "relationship"){
+            return true;
+          }else{
+            return false;
+          }
+        }
       );
 
     return tasksFiltered;
   }
 
-  update(id: string, updateTaskDto: UpdateTaskDto): Task {
+  update(id: string,  updateTaskDto: UpdateTaskDto): Task {
     const index = this.tasks.findIndex((task) => task.id == id);
 
     if (index > -1) {
@@ -59,8 +74,8 @@ export class TasksRepository {
         coins: updateTaskDto.coins ?? this.tasks[index].coins,
         days: updateTaskDto.days ?? this.tasks[index].days,
         type: updateTaskDto.type ?? this.tasks[index].type,
-        date: updateTaskDto.date ?? this.tasks[index].date,
-        status: updateTaskDto.status ?? this.tasks[index].status,
+        date: updateTaskDto.done ? this.getDate() : this.tasks[index].date,
+        done: updateTaskDto.done ?? this.tasks[index].done,
       };
       return this.tasks[index];
     }
@@ -72,5 +87,18 @@ export class TasksRepository {
       task.id == id;
     });
     this.tasks.splice(index, 1);
+  }
+
+  getDate(): string {
+    const date = new Date();
+    return `${date.getFullYear()}-${
+      date.getMonth() < 9 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`
+    }-${date.getDate()}`;
+  }
+
+  getTodayDayName(): Day {
+    const date = new Date();
+    const dayName = dayArray[date.getDay()];
+    return dayName;
   }
 }

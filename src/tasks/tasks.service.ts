@@ -52,8 +52,7 @@ export class TasksService {
         if (tasksToUpdate[0].date !== date) {
           tasksToUpdate.forEach((task) => {
             this.update(task.id, {
-              date,
-              status: 'ny',
+              done: false,
             });
           });
         }
@@ -80,40 +79,16 @@ export class TasksService {
     return task;
   }
 
-  // updateStatusRegistry(
-  //   id: string,
-  //   updateTaskStatusDto: UpdateTaskStatusDto,
-  // ): Task {
-  //   const taskAlreadyExists = this.findOne(id);
-  //   if (!taskAlreadyExists) {
-  //     throw new DefaultException('TaskService', 'Task não existe');
-  //   }
-
-  //   this.tasksRepository.updateRegistry(
-  //     id,
-  //     this.getTodayDayName(),
-  //     updateTaskStatusDto.status,
-  //   );
-
-  //   const task = this.findOne(id);
-
-  //   return task;
-  // }
-
   remove(id: string): void {
     this.tasksRepository.remove(id);
   }
 
-  getTodayDayName(): Day {
-    const date = new Date();
-    const dayName = dayArray[date.getDay()];
-    return dayName;
-  }
-
+  
   getDate(): string {
     const date = new Date();
     return `${date.getFullYear()}-${
-      date.getMonth() < 9 ? '0' : ''
+      date.getMonth() < 9 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`
     }-${date.getDate()}`;
   }
+
 }
