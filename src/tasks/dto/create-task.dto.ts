@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsArray,
   IsEnum,
   IsIn,
   IsInt,
@@ -29,6 +30,11 @@ export class CreateTaskDto {
   @IsIn(taskTypeArray)
   @IsNotEmpty()
   type: TaskType;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsArray()
+  instrucoes: string[];
 
   @ValidateIf((task) => task.type === 'daily')
   @ApiProperty({

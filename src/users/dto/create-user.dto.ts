@@ -24,6 +24,11 @@ export class CreateUserDto {
   @IsOptional()
   phone: string;
 
+  @ApiProperty({ enum: ['M', 'F'] })
+  @IsString()
+  @IsNotEmpty()
+  gender: 'M' | 'F';
+
   @ApiProperty({ required: false })
   @IsUUID('4')
   @IsOptional()

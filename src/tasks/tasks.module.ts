@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 
 import { TasksService } from './tasks.service';
 import { TasksController } from './tasks.controller';
@@ -10,6 +10,6 @@ import { TasksRepository } from './tasks.repository';
   imports: [UsersModule],
   controllers: [TasksController],
   providers: [TasksService, TasksRepository],
-  exports: [TasksRepository]
+  exports: [TasksService, TasksRepository],
 })
 export class TasksModule {}

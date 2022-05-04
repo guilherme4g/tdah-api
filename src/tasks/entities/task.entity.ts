@@ -20,10 +20,11 @@ export class Task {
   coins: number;
   type: TaskType;
   days?: Day[];
+  instrucoes: String[];
   createdById: string;
   createdBy?: User;
   createdForId: string;
   createdFor?: User;
   date: string;
-  done: boolean;  
+  done: boolean;
 }

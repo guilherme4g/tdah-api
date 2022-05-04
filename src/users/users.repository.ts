@@ -9,20 +9,48 @@ import { v4 as uuidv4 } from 'uuid';
 export class UsersRepository {
   private users: User[] = [
     {
-      id: "87114373-b7de-4e48-b603-df97545a7482",
-      name: "samuel",
-      email: "samu@cin.com",
-      phone: "40028922",
-      password: "senha123"
+      id: '87114373-b7de-4e48-b603-df97545a7482',
+      email: 'samu@cin.com',
+      name: 'samuel',
+      gender: 'M',
+      phone: '40028922',
+      password: 'senha123',
     },
     {
-      id: "a9795b14-af93-4db0-89f2-9742ac9b6d13",
-      name: "samuel junior",
-      email: "junin@cin.com",
-      phone: "40028922",
-      parentId: "87114373-b7de-4e48-b603-df97545a7482",
-      password: "senha123"
-    }  
+      id: 'a9795b14-af93-4db0-89f2-9742ac9b6d13',
+      email: 'junin@cin.com',
+      name: 'samuel junior',
+      gender: 'M',
+      phone: '40028922',
+      parentId: '87114373-b7de-4e48-b603-df97545a7482',
+      password: 'senha123',
+    },
+    {
+      id: '19ec5f83-1c8c-4bf3-bdf8-018b51c3d72f',
+      email: 'maria@cin.com',
+      name: 'maria',
+      gender: 'F',
+      phone: '40028922',
+      parentId: '87114373-b7de-4e48-b603-df97545a7482',
+      password: 'senha123',
+    },
+    {
+      id: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
+      email: 'clara@cin.com',
+      name: 'maria clara',
+      gender: 'F',
+      phone: '40028922',
+      password: 'senha123',
+    },
+    {
+      id: '7f196a2c-0c05-4e83-99f3-dfd6c73533fb',
+      email: 'ester@cin.com',
+      name: 'ester',
+      gender: 'F',
+      phone: '40028922',
+      parentId: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
+      password: 'senha123',
+    },
   ];
 
   create(createUserDto: CreateUserDto): User {
@@ -57,6 +85,7 @@ export class UsersRepository {
       id,
       email: this.users[index].email,
       name: updateUserDto.name ?? this.users[index].name,
+      gender: updateUserDto.gender ?? this.users[index].gender,
       phone: updateUserDto.phone ?? this.users[index].phone,
       parentId: updateUserDto.parentId ?? this.users[index].parentId,
       password: updateUserDto.password ?? this.users[index].password,

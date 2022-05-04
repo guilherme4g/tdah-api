@@ -4,15 +4,18 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { dayArray, Day, Task } from './entities/task.entity';
-import { getDefaultSettings } from 'http2';
-import { TasksService } from './tasks.service';
 
 @Injectable()
 export class TasksRepository {
   private tasks: Task[] = [];
 
   create(createTaskDto: CreateTaskDto): Task {
-    const task: Task = { id: uuidv4(), date: "", done: false, ...createTaskDto };
+    const task: Task = {
+      id: uuidv4(),
+      date: '',
+      done: false,
+      ...createTaskDto,
+    };
     this.tasks.push(task);
     return task;
   }
@@ -44,25 +47,24 @@ export class TasksRepository {
       )
       .filter(
         (task) => task.type.toLowerCase().indexOf(type.toLowerCase()) !== -1,
-      ).filter(
-        (task)=> {
-          const  day = this.getTodayDayName()
-          if(today && task.days && task.days.includes(day)){
-            return true;
-          }else if(!today){
-            return true;
-          }else if(task.type === "relationship"){
-            return true;
-          }else{
-            return false;
-          }
+      )
+      .filter((task) => {
+        const day = this.getTodayDayName();
+        if (today && task.days && task.days.includes(day)) {
+          return true;
+        } else if (!today) {
+          return true;
+        } else if (task.type === 'relationship') {
+          return true;
+        } else {
+          return false;
         }
-      );
+      });
 
     return tasksFiltered;
   }
 
-  update(id: string,  updateTaskDto: UpdateTaskDto): Task {
+  update(id: string, updateTaskDto: UpdateTaskDto): Task {
     const index = this.tasks.findIndex((task) => task.id == id);
 
     if (index > -1) {
@@ -70,6 +72,7 @@ export class TasksRepository {
         id,
         createdById: this.tasks[index].createdById,
         createdForId: this.tasks[index].createdForId,
+        instrucoes: updateTaskDto.instrucoes ?? this.tasks[index].instrucoes,
         name: updateTaskDto.name ?? this.tasks[index].name,
         coins: updateTaskDto.coins ?? this.tasks[index].coins,
         days: updateTaskDto.days ?? this.tasks[index].days,
@@ -92,7 +95,7 @@ export class TasksRepository {
   getDate(): string {
     const date = new Date();
     return `${date.getFullYear()}-${
-      date.getMonth() < 9 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`
+      date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`
     }-${date.getDate()}`;
   }
 
