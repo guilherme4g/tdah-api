@@ -2,7 +2,7 @@ export class User {
   id: string;
   name: string;
   email: string;
-  gender: 'M' | 'F';
+  icon: string;
   phone?: string;
   parentId?: string;
   children?: User[];

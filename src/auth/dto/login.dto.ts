@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateAuthDto {
-  @ApiProperty({ example: 'samu.gatinho@hotmail.com' })
+  @ApiProperty({ example: 'maria@cin.com' })
   @IsEmail()
   @IsNotEmpty()
   email: string;

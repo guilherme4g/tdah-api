@@ -24,10 +24,10 @@ export class CreateUserDto {
   @IsOptional()
   phone: string;
 
-  @ApiProperty({ enum: ['M', 'F'] })
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  gender: 'M' | 'F';
+  icon: string;
 
   @ApiProperty({ required: false })
   @IsUUID('4')
