@@ -7,7 +7,44 @@ import { dayArray, Day, Task } from './entities/task.entity';
 
 @Injectable()
 export class TasksRepository {
-  private tasks: Task[] = [];
+  private tasks: Task[] = [
+    {
+      id: '7799ad80-de50-48c1-97a6-09ae0c480eee',
+      coins: 50,
+      name: 'Montar Palito',
+      done: false,
+      instrucoes: ['Passo 1', 'Passo 2', 'Passo 3', 'Passo 4'],
+      type: 'relationship',
+      date: '2022-05-05',
+      days: ['thursday', 'friday', 'saturday'],
+      createdById: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
+      createdForId: '7f196a2c-0c05-4e83-99f3-dfd6c73533fb',
+    },
+    {
+      id: '3765a2ce-84e2-4fed-82c7-9d1f1604f2e2',
+      coins: 50,
+      name: 'Arrumar brinquedos',
+      done: false,
+      instrucoes: [],
+      type: 'daily',
+      date: '2022-05-05',
+      days: ['thursday', 'friday', 'saturday'],
+      createdById: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
+      createdForId: '7f196a2c-0c05-4e83-99f3-dfd6c73533fb',
+    },
+    {
+      id: '2072a89b-f6af-4980-8fbb-192ab16c7f05',
+      coins: 100,
+      name: 'Escovar os dentes',
+      done: false,
+      instrucoes: [],
+      type: 'daily',
+      date: '2022-05-05',
+      days: ['thursday', 'friday', 'saturday', 'monday'],
+      createdById: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
+      createdForId: '7f196a2c-0c05-4e83-99f3-dfd6c73533fb',
+    },
+  ];
 
   create(createTaskDto: CreateTaskDto): Task {
     const task: Task = {
