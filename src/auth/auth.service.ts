@@ -10,13 +10,17 @@ export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
   login(createAuthDto: CreateAuthDto): User {
-    const user = this.usersService.findByEmail(createAuthDto.email);
+    const userAlreadyExists = this.usersService.findByEmail(
+      createAuthDto.email,
+    );
 
-    if (!user) {
+    if (!userAlreadyExists) {
       throw new DefaultException('AuthService', 'Credenciais Invalidas');
-    } else if (user.password !== createAuthDto.password) {
+    } else if (userAlreadyExists.password !== createAuthDto.password) {
       throw new DefaultException('AuthService', 'Credenciais Invalidas');
     }
+
+    const user = this.usersService.findOne(userAlreadyExists.id);
 
     return user;
   }

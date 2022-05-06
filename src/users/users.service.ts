@@ -6,6 +6,7 @@ import { UsersRepository } from './users.repository';
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RedeemUserDto } from './dto/redeem-user.dto';
 
 import { DefaultException } from '../shared/exception/default.exception';
 
@@ -47,7 +48,7 @@ export class UsersService {
     return user;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): User {
+  update(id: string, updateUserDto: UpdateUserDto & { coins?: number }): User {
     const userAlreadyExists = this.findOne(id);
     if (!userAlreadyExists) {
       throw new DefaultException('UserService', 'Usuário não existe');
@@ -55,6 +56,24 @@ export class UsersService {
 
     const user = this.usersRepository.update(id, updateUserDto);
     return user;
+  }
+
+  redeem(id: string, redeemUserDto: RedeemUserDto): void {
+    const userAlreadyExists = this.findOne(id);
+    if (!userAlreadyExists) {
+      throw new DefaultException('UserService', 'Usuário não existe');
+    }
+
+    if (userAlreadyExists.coins < redeemUserDto.coins) {
+      throw new DefaultException(
+        'UserService',
+        'Não é possível debitar esse valor',
+      );
+    }
+
+    const user = this.usersRepository.update(id, {
+      coins: userAlreadyExists.coins - redeemUserDto.coins,
+    });
   }
 
   remove(id: string): void {

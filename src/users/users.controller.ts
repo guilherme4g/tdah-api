@@ -16,6 +16,7 @@ import { UsersService } from './users.service';
 import { ListUserDto } from './dto/list-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RedeemUserDto } from './dto/redeem-user.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -48,6 +49,13 @@ export class UsersController {
   @ApiOperation({ summary: 'update user by id' })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
+  }
+
+  @Patch(':id/redeem')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'debit coins by user id' })
+  redeem(@Param('id') id: string, @Body() redeemUserDto: RedeemUserDto) {
+    return this.usersService.update(id, redeemUserDto);
   }
 
   @Delete(':id')

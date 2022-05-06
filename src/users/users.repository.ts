@@ -79,13 +79,14 @@ export class UsersRepository {
     return usersFiltered;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto): User {
+  update(id: string, updateUserDto: UpdateUserDto & { coins?: number }): User {
     const index = this.users.findIndex((user) => user.id == id);
     this.users[index] = {
       id,
       email: this.users[index].email,
       name: updateUserDto.name ?? this.users[index].name,
       icon: updateUserDto.icon ?? this.users[index].icon,
+      coins: updateUserDto.coins ?? this.users[index].coins,
       phone: updateUserDto.phone ?? this.users[index].phone,
       parentId: updateUserDto.parentId ?? this.users[index].parentId,
       password: updateUserDto.password ?? this.users[index].password,

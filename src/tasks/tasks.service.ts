@@ -75,6 +75,14 @@ export class TasksService {
       throw new DefaultException('TaskService', 'Task não existe');
     }
 
+    if (updateTaskDto.done) {
+      const childId = taskAlreadyExists.createdForId;
+      const child = this.usersService.findOne(childId);
+      this.usersService.update(childId, {
+        coins: child.coins + taskAlreadyExists.coins,
+      });
+    }
+
     const task = this.tasksRepository.update(id, updateTaskDto);
     return task;
   }
@@ -83,12 +91,10 @@ export class TasksService {
     this.tasksRepository.remove(id);
   }
 
-  
   getDate(): string {
     const date = new Date();
     return `${date.getFullYear()}-${
-      date.getMonth() < 9 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`
+      date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`
     }-${date.getDate()}`;
   }
-
 }
