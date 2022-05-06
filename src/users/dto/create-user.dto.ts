@@ -24,9 +24,9 @@ export class CreateUserDto {
   @IsOptional()
   phone: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   icon: string;
 
   @ApiProperty({ required: false })
