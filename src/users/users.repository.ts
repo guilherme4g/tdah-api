@@ -23,6 +23,7 @@ export class UsersRepository {
       icon: '2',
       phone: '40028922',
       parentId: '87114373-b7de-4e48-b603-df97545a7482',
+      coins: 0,
       password: 'senha123',
     },
     {
@@ -32,6 +33,7 @@ export class UsersRepository {
       icon: '3',
       phone: '40028922',
       parentId: '87114373-b7de-4e48-b603-df97545a7482',
+      coins: 0,
       password: 'senha123',
     },
     {
@@ -49,12 +51,13 @@ export class UsersRepository {
       icon: '3',
       phone: '40028922',
       parentId: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
+      coins: 0,
       password: 'senha123',
     },
   ];
 
   create(createUserDto: CreateUserDto): User {
-    const user: User = { id: uuidv4(), ...createUserDto };
+    const user: User = { id: uuidv4(), ...createUserDto, coins: 0 };
     this.users.push(user);
     return user;
   }
