@@ -98,9 +98,7 @@ export class UsersRepository {
   }
 
   remove(id: string): void {
-    const index = this.users.findIndex((user) => {
-      user.id == id;
-    });
+    const index = this.users.findIndex((user) => user.id == id);
     this.users.splice(index, 1);
   }
 }

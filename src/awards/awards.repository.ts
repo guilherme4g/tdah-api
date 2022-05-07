@@ -71,9 +71,7 @@ export class AwardsRepository {
   }
 
   remove(id: string): void {
-    const index = this.awards.findIndex((Award) => {
-      Award.id == id;
-    });
+    const index = this.awards.findIndex((Award) => Award.id == id);
     this.awards.splice(index, 1);
   }
 }

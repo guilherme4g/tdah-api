@@ -20,15 +20,15 @@ export class TasksRepository {
       createdForId: '7f196a2c-0c05-4e83-99f3-dfd6c73533fb',
     },
     {
-        id: uuidv4(),
-        coins: 200,
-        done: false,
-        name: 'Cubo Colorido',
-        instructions: ['Passo 1', 'Passo 2', 'Passo 3', 'Passo 4'],
-        type: 'relationship',
-        date: '2022-05-05',
-        createdById: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
-        createdForId: '7f196a2c-0c05-4e83-99f3-dfd6c73533fb',
+      id: uuidv4(),
+      coins: 200,
+      done: false,
+      name: 'Cubo Colorido',
+      instructions: ['Passo 1', 'Passo 2', 'Passo 3', 'Passo 4'],
+      type: 'relationship',
+      date: '2022-05-05',
+      createdById: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
+      createdForId: '7f196a2c-0c05-4e83-99f3-dfd6c73533fb',
     },
     {
       id: uuidv4(),
@@ -254,9 +254,7 @@ export class TasksRepository {
   }
 
   remove(id: string): void {
-    const index = this.tasks.findIndex((task) => {
-      task.id == id;
-    });
+    const index = this.tasks.findIndex((task) => task.id == id);
     this.tasks.splice(index, 1);
   }
 
