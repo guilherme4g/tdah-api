@@ -57,4 +57,9 @@ export class CreateTaskDto {
   @IsString()
   @IsNotEmpty()
   createdForId: string;
+
+  @ApiProperty({ example: 'Arrumar a Cama', required: false })
+  @IsString()
+  @IsOptional()
+  document?: string;
 }

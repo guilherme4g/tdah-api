@@ -44,4 +44,9 @@ export class ListTaskDto {
   @IsString()
   @IsOptional()
   createdForId?: string;
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  document?: string;
 }

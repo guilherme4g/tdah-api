@@ -35,6 +35,7 @@ export class UsersService {
         type: 'relationship',
         createdById: createUserDto.parentId,
         createdForId: user.id,
+        document: 'https://shre.ink/qwV',
       });
 
       this.tasksService.create({
@@ -44,6 +45,7 @@ export class UsersService {
         type: 'relationship',
         createdById: createUserDto.parentId,
         createdForId: user.id,
+        document: 'https://shre.ink/qwE'
       });
 
       this.tasksService.create({

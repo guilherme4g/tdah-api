@@ -27,4 +27,5 @@ export class Task {
   createdFor?: User;
   date: string;
   done: boolean;
+  document?: string;
 }
