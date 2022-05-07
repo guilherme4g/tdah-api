@@ -20,7 +20,7 @@ export class Task {
   coins: number;
   type: TaskType;
   days?: Day[];
-  instrucoes: string[];
+  instructions?: string[];
   createdById: string;
   createdBy?: User;
   createdForId: string;

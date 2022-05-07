@@ -5,6 +5,7 @@ import {
   IsIn,
   IsInt,
   IsNotEmpty,
+  IsOptional,
   IsString,
   ValidateIf,
 } from 'class-validator';
@@ -31,10 +32,10 @@ export class CreateTaskDto {
   @IsNotEmpty()
   type: TaskType;
 
-  @ApiProperty()
-  @IsNotEmpty()
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsArray()
-  instrucoes: string[];
+  instructions?: string[];
 
   @ValidateIf((task) => task.type === 'daily')
   @ApiProperty({
