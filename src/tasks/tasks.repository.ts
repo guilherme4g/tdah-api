@@ -66,6 +66,7 @@ export class TasksRepository {
       today = '',
       type = '',
     } = listTaskDto;
+
     const tasksFiltered = this.tasks
       .filter((task) => task.id.toLowerCase().indexOf(id.toLowerCase()) !== -1)
       .filter(

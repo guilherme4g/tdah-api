@@ -55,7 +55,7 @@ export class AwardsRepository {
             .indexOf(createdForId.toLowerCase()) !== -1,
       );
 
-    return this.awards;
+    return tasksFiltered;
   }
 
   update(id: string, updateAwardDto: UpdateAwardDto): Award {
