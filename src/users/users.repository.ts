@@ -51,7 +51,7 @@ export class UsersRepository {
       icon: '3',
       phone: '40028922',
       parentId: 'a698fe53-92a9-4e06-9b09-93d2dd9fe804',
-      coins: 0,
+      coins: 60,
       password: 'senha123',
     },
   ];

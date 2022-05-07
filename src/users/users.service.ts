@@ -58,7 +58,7 @@ export class UsersService {
     return user;
   }
 
-  redeem(id: string, redeemUserDto: RedeemUserDto): void {
+  redeem(id: string, redeemUserDto: RedeemUserDto): User {
     const userAlreadyExists = this.findOne(id);
     if (!userAlreadyExists) {
       throw new DefaultException('UserService', 'Usuário não existe');
@@ -74,6 +74,8 @@ export class UsersService {
     const user = this.usersRepository.update(id, {
       coins: userAlreadyExists.coins - redeemUserDto.coins,
     });
+
+    return user;
   }
 
   remove(id: string): void {

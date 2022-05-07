@@ -55,7 +55,7 @@ export class UsersController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'debit coins by user id' })
   redeem(@Param('id') id: string, @Body() redeemUserDto: RedeemUserDto) {
-    return this.usersService.update(id, redeemUserDto);
+    return this.usersService.redeem(id, redeemUserDto);
   }
 
   @Delete(':id')
