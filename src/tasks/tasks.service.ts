@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 
 import { dayArray, Day, Task } from './entities/task.entity';
 
@@ -14,6 +14,7 @@ import { DefaultException } from 'src/shared/exception/default.exception';
 export class TasksService {
   constructor(
     private readonly tasksRepository: TasksRepository,
+    @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
   ) {}
 

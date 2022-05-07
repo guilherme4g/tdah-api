@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 
 import { User } from './entities/user.entity';
 import { UsersRepository } from './users.repository';
@@ -9,10 +9,15 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RedeemUserDto } from './dto/redeem-user.dto';
 
 import { DefaultException } from '../shared/exception/default.exception';
+import { TasksService } from 'src/tasks/tasks.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    @Inject(forwardRef(() => TasksService))
+    private readonly tasksService: TasksService,
+  ) {}
 
   create(createUserDto: CreateUserDto): User {
     const userAlreadyExists = this.findByEmail(createUserDto.email);
@@ -21,6 +26,19 @@ export class UsersService {
     }
 
     const user = this.usersRepository.create(createUserDto);
+
+    if (createUserDto.parentId) {
+      this.tasksService.create({
+        coins: 50,
+        name: 'Montar Palito',
+        instructions: ['Passo 1', 'Passo 2', 'Passo 3', 'Passo 4'],
+        type: 'relationship',
+        days: ['thursday', 'friday', 'saturday'],
+        createdById: createUserDto.parentId,
+        createdForId: user.id,
+      });
+    }
+
     return user;
   }
 
