@@ -36,11 +36,30 @@ export class UsersService {
         createdById: createUserDto.parentId,
         createdForId: user.id,
       });
+
       this.tasksService.create({
         coins: 200,
         name: 'Cubo Colorido',
         instructions: ['Passo 1', 'Passo 2', 'Passo 3', 'Passo 4'],
         type: 'relationship',
+        createdById: createUserDto.parentId,
+        createdForId: user.id,
+      });
+
+      this.tasksService.create({
+        coins: 50,
+        name: 'Escovar os dentes',
+        type: 'daily',
+        days: ['thursday', 'friday', 'saturday', 'monday'],
+        createdById: createUserDto.parentId,
+        createdForId: user.id,
+      });
+
+      this.tasksService.create({
+        coins: 50,
+        name: 'Arrumar a cama',
+        type: 'daily',
+        days: ['thursday', 'friday', 'saturday', 'monday'],
         createdById: createUserDto.parentId,
         createdForId: user.id,
       });
